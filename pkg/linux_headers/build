@@ -1,0 +1,24 @@
+VERSION="4.19.63"
+SRCDIR="linux-$VERSION"
+TARBALL="linux-$VERSION.tar.xz"
+URL="https://www.kernel.org/pub/linux/kernel/v4.x"
+SHA256SUM="75988760b931864b46292dcfad1dd54b3f4da10168041f48ca6d7f6dd4e5d25d"
+
+prepare() {
+	return
+}
+
+build() {
+	local LINUX_CPU="$(uname -m)"
+
+	make -C "$1" O="$PKGBUILDDIR" ARCH="$LINUX_CPU" mrproper
+	make -C "$1" O="$PKGBUILDDIR" ARCH="$LINUX_CPU" headers_check
+}
+
+deploy() {
+	local LINUX_CPU="$(uname -m)"
+
+	export KBUILD_OUTPUT="$PKGBUILDDIR"
+	make -C "$1" O="$PKGBUILDDIR" ARCH="$LINUX_CPU" \
+	     INSTALL_HDR_PATH="$SYSROOT" headers_install
+}

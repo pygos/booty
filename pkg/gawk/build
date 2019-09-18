@@ -1,0 +1,18 @@
+VERSION="5.0.1"
+SRCDIR="gawk-${VERSION}"
+TARBALL="${SRCDIR}.tar.xz"
+URL="https://ftp.gnu.org/gnu/gawk"
+SHA256SUM="8e4e86f04ed789648b66f757329743a0d6dfb5294c3b91b756a474f1ce05a794"
+
+prepare() {
+	return
+}
+
+build() {
+	run_configure "$1"
+	make -j $NUMJOBS
+}
+
+deploy() {
+	make DESTDIR="$SYSROOT" install
+}

@@ -1,0 +1,21 @@
+VERSION="1.0.6"
+SRCDIR="bzip2-${VERSION}"
+TARBALL="bzip2_${VERSION}.orig.tar.bz2"
+URL="https://snapshot.debian.org/archive/debian/20111204T160411Z/pool/main/b/bzip2"
+SHA256SUM="d70a9ccd8bdf47e302d96c69fecd54925f45d9c7b966bb4ef5f56b770960afa7"
+
+prepare() {
+	return
+}
+
+build() {
+	cp -r "$1"/* "$PKGBUILDDIR"
+
+	make CFLAGS="-Wall -Winline -O2 -D_FILE_OFFSET_BITS=64 -O2 -Os" \
+	     CC=${TARGET}-gcc AR=${TARGET}-ar \
+	     RANLIB=${TARGET}-ranlib -j $NUMJOBS libbz2.a bzip2 bzip2recover
+}
+
+deploy() {
+	make PREFIX="$SYSROOT" install
+}

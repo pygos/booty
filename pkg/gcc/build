@@ -1,0 +1,17 @@
+# inherit package details from toolchain package
+source "$SCRIPTDIR/pkg/tc-gcc1/build"
+
+build() {
+	run_configure "$1" --target="$TARGET" --disable-nls \
+		      --enable-languages=c,c++ --enable-c99 \
+		      --enable-long-long --enable-libmudflap \
+		      --disable-multilib --disable-libsanitizer \
+		      --disable-libquadmath --with-arch="$GCC_CPU" \
+		      --with-native-system-header-dir="/include"
+
+	make -j $NUMJOBS
+}
+
+deploy() {
+	make DESTDIR="$SYSROOT" install
+}

@@ -1,0 +1,20 @@
+VERSION="1.2.11"
+SRCDIR="zlib-${VERSION}"
+TARBALL="${SRCDIR}.tar.xz"
+URL="http://www.zlib.net/"
+SHA256SUM="4ff941449631ace0d4d203e3483be9dbc9da454084111f97ea0a2114e19bf066"
+
+prepare() {
+	return
+}
+
+build() {
+	cmake -DCMAKE_TOOLCHAIN_FILE="$CMAKETCFILE" \
+		-DCMAKE_INSTALL_PREFIX="" "$1"
+
+	make -j $NUMJOBS
+}
+
+deploy() {
+	make DESTDIR="$SYSROOT" install
+}

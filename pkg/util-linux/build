@@ -1,0 +1,31 @@
+VERSION="2.34"
+SRCDIR="util-linux-${VERSION}"
+TARBALL="${SRCDIR}.tar.xz"
+URL="https://www.kernel.org/pub/linux/utils/util-linux/v${VERSION}"
+SHA256SUM="743f9d0c7252b6db246b659c1e1ce0bd45d8d4508b4dfa427bbb4a3e9b9f62b5"
+
+prepare() {
+	apply_patches
+}
+
+build() {
+	ADJTIME_PATH=/var/lib/hwclock/adjtime \
+	run_configure "$1" --disable-pylibmount --without-python \
+		     --without-systemd --without-systemdsystemunitdir \
+		     --disable-makeinstall-chown \
+		     --disable-makeinstall-setuid
+
+	make -j $NUMJOBS
+}
+
+deploy() {
+	mkdir -p "$SYSROOT/var/lib/hwclock"
+
+	unfuck_libtool
+	make DESTDIR="$SYSROOT" install
+
+	if [ -e "$SYSROOT/sbin" ]; then
+		mv "$SYSROOT/sbin"/* "$SYSROOT/bin"
+		rmdir "$SYSROOT/sbin"
+	fi
+}

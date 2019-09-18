@@ -1,0 +1,18 @@
+VERSION="4.0.2"
+SRCDIR="mpfr-$VERSION"
+TARBALL="${SRCDIR}.tar.xz"
+URL="https://ftp.gnu.org/gnu/mpfr"
+SHA256SUM="1d3be708604eae0e42d578ba93b390c2a145f17743a744d8f3f8c2ad5855a38a"
+
+prepare() {
+	return
+}
+
+build() {
+	run_configure "$1"
+	make -j $NUMJOBS
+}
+
+deploy() {
+	make DESTDIR="$SYSROOT" install
+}

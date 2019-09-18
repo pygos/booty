@@ -1,0 +1,24 @@
+prepare() {
+	return
+}
+
+build() {
+	return
+}
+
+deploy() {
+	mkdir -p "$SYSROOT/etc"
+	mkdir -p "$SYSROOT/dev"
+	mkdir -p "$SYSROOT/root"
+	mkdir -p "$SYSROOT/tmp"
+	cp "$SCRIPTDIR/pkg/$PKGNAME/group" "$SYSROOT/etc"
+	cp "$SCRIPTDIR/pkg/$PKGNAME/passwd" "$SYSROOT/etc"
+	cp "$SCRIPTDIR/pkg/$PKGNAME/bashrc" "$SYSROOT/etc"
+	cp "$SCRIPTDIR/pkg/$PKGNAME/hostname" "$SYSROOT/etc"
+	cp "$SCRIPTDIR/pkg/$PKGNAME/hosts" "$SYSROOT/etc"
+	cp "$SCRIPTDIR/pkg/$PKGNAME/resolv.conf" "$SYSROOT/etc"
+
+	mkdir -p "$SYSROOT/proc"
+	cp "$SCRIPTDIR/pkg/$PKGNAME/init.sh" "$SYSROOT"
+	ln -s /proc/self/mounts "$SYSROOT/etc/mtab"
+}

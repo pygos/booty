@@ -1,0 +1,20 @@
+VERSION="5.0"
+SRCDIR="bash-${VERSION}"
+TARBALL="${SRCDIR}.tar.gz"
+URL="https://ftp.gnu.org/gnu/bash"
+SHA256SUM="b4a80f2ac66170b2913efbfb9f2594f1f76c7b1afd11f799e22035d63077fb4d"
+
+prepare() {
+	apply_patches
+}
+
+build() {
+	run_configure "$1" --without-bash-malloc --with-installed-readline
+
+	make SHLIB_LIBS="-lncursesw" -j $NUMJOBS
+}
+
+deploy() {
+	make SHLIB_LIBS="-lncursesw" DESTDIR="$SYSROOT" install
+	ln -sf bash "$SYSROOT/bin/sh"
+}

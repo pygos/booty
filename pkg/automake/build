@@ -1,0 +1,24 @@
+VERSION="1.16"
+SRCDIR="automake-${VERSION}"
+TARBALL="${SRCDIR}.tar.xz"
+URL="https://ftp.gnu.org/gnu/automake"
+SHA256SUM="f98f2d97b11851cbe7c2d4b4eaef498ae9d17a3c2ef1401609b7b4ca66655b8a"
+
+prepare() {
+	return
+}
+
+build() {
+	run_configure "$1"
+	make -j $NUMJOBS
+}
+
+deploy() {
+	make DESTDIR="$SYSROOT" install
+
+	sed -i 's#/usr/bin#/bin#g' "$SYSROOT/bin/autom4te"
+	sed -i 's#/usr/bin#/bin#g' "$SYSROOT/bin/automake"
+	sed -i 's#/usr/bin#/bin#g' "$SYSROOT/bin/automake-1.16"
+	sed -i 's#/usr/bin#/bin#g' "$SYSROOT/bin/aclocal"
+	sed -i 's#/usr/bin#/bin#g' "$SYSROOT/bin/aclocal-1.16"
+}

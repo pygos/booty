@@ -1,0 +1,18 @@
+VERSION="0.6.1"
+SRCDIR="squashfs-tools-ng-${VERSION}"
+TARBALL="${SRCDIR}.tar.xz"
+URL="https://infraroot.at/pub/squashfs"
+SHA256SUM="aba8eccd4c0735ef7019d84a94166a866f11054fc713c4ba0fb919f1569dd7e6"
+
+prepare() {
+	return
+}
+
+build() {
+	run_configure "$1"
+	make -j $NUMJOBS
+}
+
+deploy() {
+	make DESTDIR="$SYSROOT" install
+}
