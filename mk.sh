@@ -144,7 +144,7 @@ _EOF
 
 	find -H "bin" -type f -printf "file \"%p\" 0755 0 0\\n" >> "$BUILDROOT/files.txt"
 	find -H "include" -type f -printf "file \"%p\" 0644 0 0\\n" >> "$BUILDROOT/files.txt"
-	find -H "etc" -type f -printf "file \"%p\" 0755 0 0\\n" >> "$BUILDROOT/files.txt"
+	find -H "etc" -type f -printf "file \"%p\" 0644 0 0\\n" >> "$BUILDROOT/files.txt"
 	find -H "lib" -name "*.so*" -type f -printf "file \"%p\" 0755 0 0\\n" >> "$BUILDROOT/files.txt"
 	find -H "lib" ! -name "*.so*" -type f -printf "file \"%p\" 0644 0 0\\n" >> "$BUILDROOT/files.txt"
 	find -H "share/awk" -type f -printf "file \"%p\" 0644 0 0\\n" >> "$BUILDROOT/files.txt"
