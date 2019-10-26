@@ -59,8 +59,8 @@ done
 for pkg in basefiles ncurses readline bash coreutils util-linux xz gzip bzip2 \
 	   diffutils findutils grep gawk sed tar make zlib flex bison \
 	   gmp mpfr mpc openssl curl inetutils less squashfs-tools-ng patch \
-	   binutils gcc rhash cmake m4 autoconf autoconf-archive automake \
-	   pkg-config libtool; do
+	   binutils gcc rhash expat cmake m4 autoconf autoconf-archive \
+	   automake pkg-config libtool; do
 	include_pkg "$pkg"
 	build_package
 done
