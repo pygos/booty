@@ -1,0 +1,25 @@
+VERSION="1.3.8"
+SRCDIR="RHash-${VERSION}"
+TARBALL="rhash-${VERSION}-src.tar.gz"
+URL="https://sourceforge.net/projects/rhash/files/rhash/${VERSION}"
+SHA256SUM="be536a56acfefc87dbc8b1db30fc639020e41edf05518185ea98630e3df7c04c"
+
+prepare() {
+	return
+}
+
+build() {
+	tar zxf "$PKGDOWNLOADDIR/$TARBALL" --strip 1
+
+	./configure --cc=${TARGET}-gcc --target=${TARGET} --prefix="" \
+		    --enable-openssl --enable-lib-shared \
+		    --disable-static --disable-gettext \
+		    --disable-lib-static
+
+	make -j $NUMJOBS lib-static
+}
+
+deploy() {
+	make DESTDIR="$SYSROOT" install-lib-static install-lib-headers \
+	     install-pkg-config
+}
