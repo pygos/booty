@@ -1,0 +1,21 @@
+VERSION="3.4.0"
+SRCDIR="libarchive-${VERSION}"
+TARBALL="${SRCDIR}.tar.gz"
+URL="https://www.libarchive.de/downloads"
+SHA256SUM="8643d50ed40c759f5412a3af4e353cffbce4fdf3b5cf321cb72cacf06b2d825e"
+
+prepare() {
+	return
+}
+
+build() {
+	run_configure "$1" --disable-bsdtar --disable-bsdcpio --disable-bsdcat\
+		      --disable-acl --disable-xattr --with-bz2lib \
+		      --without-libiconv-prefix --without-xml2 --without-lzo2 \
+		      --without-nettle --with-lzma
+	make -j $NUMJOBS
+}
+
+deploy() {
+	make DESTDIR="$SYSROOT" install
+}
