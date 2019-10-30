@@ -33,6 +33,7 @@ source "$SCRIPTDIR/util/pkgcmd.sh"
 source "$SCRIPTDIR/util/misc.sh"
 source "$SCRIPTDIR/util/autotools.sh"
 source "$SCRIPTDIR/util/build_package.sh"
+source "$SCRIPTDIR/util/sqfs.sh"
 
 ############################### build packages ###############################
 echo "--- building toolchain ---"
@@ -76,84 +77,9 @@ if [ -z "$PYGOS_BUILD_CONTAINER" ]; then
 	unshare -fimpuUr "$SCRIPTDIR/util/runchroot.sh" "$SYSROOT"
 else
 	echo "--- generating squashfs ---"
-
-	cat > "$BUILDROOT/files.txt" <<_EOF
-dir bin 0755 0 0
-dir include 0755 0 0
-dir lib 0755 0 0
-dir etc 0755 0 0
-dir dev 0755 0 0
-dir tmp 0755 0 0
-dir root 0700 0 0
-dir share 0755 0 0
-dir proc 0755 0 0
-dir share/awk 0755 0 0
-dir share/tabset 0755 0 0
-dir share/terminfo 0755 0 0
-dir share/aclocal 0755 0 0
-dir share/bison 0755 0 0
-dir share/gcc-9.2.0 0755 0 0
-dir share/aclocal-1.16 0755 0 0
-dir share/autoconf 0755 0 0
-dir share/automake-1.16 0755 0 0
-dir share/cmake-3.15 0755 0 0
-dir $TARGET 0755 0 0
-dir $TARGET/bin 0755 0 0
-dir $TARGET/lib 0755 0 0
-dir $TARGET/lib/ldscripts 0755 0 0
-file init.sh 0700 0 0
-_EOF
-
 	pushd "$SYSROOT" > /dev/null
-	find -H "include" -type d -printf "dir \"%p\" 0%m 0 0\\n" | tail -n +2 >> "$BUILDROOT/files.txt"
-	find -H "lib" -type d -printf "dir \"%p\" 0%m 0 0\\n" | tail -n +2 >> "$BUILDROOT/files.txt"
-	find -H "etc" -type d -printf "dir \"%p\" 0%m 0 0\\n" | tail -n +2 >> "$BUILDROOT/files.txt"
-	find -H "share/awk" -type d -printf "dir \"%p\" 0%m 0 0\\n" | tail -n +2 >> "$BUILDROOT/files.txt"
-	find -H "share/tabset" -type d -printf "dir \"%p\" 0%m 0 0\\n" | tail -n +2 >> "$BUILDROOT/files.txt"
-	find -H "share/terminfo" -type d -printf "dir \"%p\" 0%m 0 0\\n" | tail -n +2 >> "$BUILDROOT/files.txt"
-	find -H "share/aclocal" -type d -printf "dir \"%p\" 0%m 0 0\\n" | tail -n +2 >> "$BUILDROOT/files.txt"
-	find -H "share/bison" -type d -printf "dir \"%p\" 0%m 0 0\\n" | tail -n +2 >> "$BUILDROOT/files.txt"
-	find -H "share/gcc-9.2.0" -type d -printf "dir \"%p\" 0%m 0 0\\n" | tail -n +2 >> "$BUILDROOT/files.txt"
-	find -H "share/aclocal-1.16" -type d -printf "dir \"%p\" 0%m 0 0\\n" | tail -n +2 >> "$BUILDROOT/files.txt"
-	find -H "share/autoconf" -type d -printf "dir \"%p\" 0%m 0 0\\n" | tail -n +2 >> "$BUILDROOT/files.txt"
-	find -H "share/automake-1.16" -type d -printf "dir \"%p\" 0%m 0 0\\n" | tail -n +2 >> "$BUILDROOT/files.txt"
-	find -H "share/cmake-3.15" -type d -printf "dir \"%p\" 0%m 0 0\\n" | tail -n +2 >> "$BUILDROOT/files.txt"
-
-	find -H "bin" -type l -printf "slink \"%p\" 0%m 0 0 %l\\n" >> "$BUILDROOT/files.txt"
-	find -H "include" -type l -printf "slink \"%p\" 0%m 0 0 %l\\n" >> "$BUILDROOT/files.txt"
-	find -H "etc" -type l -printf "slink \"%p\" 0%m 0 0 %l\\n" >> "$BUILDROOT/files.txt"
-	find -H "lib" -type l -printf "slink \"%p\" 0%m 0 0 %l\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/awk" -type l -printf "slink \"%p\" 0%m 0 0 %l\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/tabset" -type l -printf "slink \"%p\" 0%m 0 0 %l\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/terminfo" -type l -printf "slink \"%p\" 0%m 0 0 %l\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/aclocal" -type l -printf "slink \"%p\" 0%m 0 0 %l\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/bison" -type l -printf "slink \"%p\" 0%m 0 0 %l\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/gcc-9.2.0" -type l -printf "slink \"%p\" 0%m 0 0 %l\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/aclocal-1.16" -type l -printf "slink \"%p\" 0%m 0 0 %l\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/autoconf" -type l -printf "slink \"%p\" 0%m 0 0 %l\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/automake-1.16" -type l -printf "slink \"%p\" 0%m 0 0 %l\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/cmake-3.15" -type l -printf "slink \"%p\" 0%m 0 0 %l\\n" >> "$BUILDROOT/files.txt"
-
-	find -H "bin" -type f -printf "file \"%p\" 0755 0 0\\n" >> "$BUILDROOT/files.txt"
-	find -H "include" -type f -printf "file \"%p\" 0644 0 0\\n" >> "$BUILDROOT/files.txt"
-	find -H "etc" -type f -printf "file \"%p\" 0644 0 0\\n" >> "$BUILDROOT/files.txt"
-	find -H "lib" -name "*.so*" -type f -printf "file \"%p\" 0755 0 0\\n" >> "$BUILDROOT/files.txt"
-	find -H "lib" ! -name "*.so*" -type f -printf "file \"%p\" 0644 0 0\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/awk" -type f -printf "file \"%p\" 0644 0 0\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/tabset" -type f -printf "file \"%p\" 0644 0 0\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/terminfo" -type f -printf "file \"%p\" 0644 0 0\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/aclocal" -type f -printf "file \"%p\" 0644 0 0\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/bison" -type f -printf "file \"%p\" 0644 0 0\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/gcc-9.2.0" -type f -printf "file \"%p\" 0644 0 0\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/aclocal-1.16" -type f -printf "file \"%p\" 0644 0 0\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/autoconf" -type f -printf "file \"%p\" 0644 0 0\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/automake-1.16" -type f -printf "file \"%p\" 0644 0 0\\n" >> "$BUILDROOT/files.txt"
-	find -H "share/cmake-3.15" -type f -printf "file \"%p\" 0644 0 0\\n" >> "$BUILDROOT/files.txt"
-
-	find -H "$TARGET/bin" -type f -printf "file \"%p\" 0755 0 0\\n" >> "$BUILDROOT/files.txt"
-	find -H "$TARGET/lib/ldscripts" -type f -printf "file \"%p\" 0755 0 0\\n" >> "$BUILDROOT/files.txt"
-	popd  > /dev/null
-
+	gen_sqfs_file_list >> "$BUILDROOT/files.txt"
+	popd > /dev/null
 	gensquashfs -j $NUMJOBS -D "$SYSROOT" -F "$BUILDROOT/files.txt" -fq rootfs.sqfs
 fi
 
