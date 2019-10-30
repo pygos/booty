@@ -80,6 +80,8 @@ else
 	pushd "$SYSROOT" > /dev/null
 	gen_sqfs_file_list >> "$BUILDROOT/files.txt"
 	popd > /dev/null
+
+	strip_files "$SYSROOT/bin" "$SYSROOT/lib" "$SYSROOT/$TARGET/bin"
 	gensquashfs -j $NUMJOBS -D "$SYSROOT" -F "$BUILDROOT/files.txt" -fq rootfs.sqfs
 fi
 
