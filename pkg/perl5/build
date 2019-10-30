@@ -27,13 +27,13 @@ build() {
 
 	./configure --target="$TARGET" --prefix="/" -Dvendorprefix="/" \
 		    -Dpager="/bin/less -isR" -Dusethreads -Duseshrplib \
-		    --sysroot="$SYSROOT"
+		    -Dld="${TARGET}-gcc" --sysroot="$SYSROOT"
 
 	grep -rl '/usr/bin' * | xargs sed -i 's#/usr/bin#/lib#g'
 	grep -rl '/usr/lib' * | xargs sed -i 's#/usr/lib#/lib#g'
 	grep -rl '/usr/share' * | xargs sed -i 's#/usr/share#/share#g'
 
-	make -j 1
+	make LD="${TARGET}-gcc" -j 1
 }
 
 deploy() {
