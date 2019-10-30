@@ -48,19 +48,11 @@ export PKG_CONFIG_SYSROOT_DIR="$SYSROOT"
 export PKG_CONFIG_LIBDIR="$SYSROOT/lib/pkgconfig"
 export PKG_CONFIG_PATH="$SYSROOT/lib/pkgconfig"
 
-for pkg in perl5; do
-	include_pkg "$pkg"
-	build_package
-done
-
-# TODO: if we are in the container, nuke /include and /lib. We no longer build
-# host tools and we don't want ANY cross contamination.
-
 for pkg in basefiles ncurses readline bash coreutils util-linux xz gzip bzip2 \
 	   diffutils findutils grep gawk sed tar make zlib flex bison \
 	   gmp mpfr mpc openssl curl inetutils less squashfs-tools-ng patch \
-	   binutils gcc rhash expat libarchive jsoncpp libuv cmake m4 autoconf \
-	   autoconf-archive automake pkg-config libtool; do
+	   perl5 binutils gcc rhash expat libarchive jsoncpp libuv cmake m4 \
+	   autoconf autoconf-archive automake pkg-config libtool; do
 	include_pkg "$pkg"
 	build_package
 done
