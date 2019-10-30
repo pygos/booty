@@ -11,10 +11,11 @@ prepare() {
 build() {
 	run_configure "$1" --without-bash-malloc --with-installed-readline
 
-	make SHLIB_LIBS="-lncursesw" -j $NUMJOBS
+	make TERMCAP_LIB="-lncursesw" SHLIB_LIBS="-lncursesw" -j $NUMJOBS
 }
 
 deploy() {
-	make SHLIB_LIBS="-lncursesw" DESTDIR="$SYSROOT" install
+	make TERMCAP_LIB="-lncursesw" SHLIB_LIBS="-lncursesw" \
+	     DESTDIR="$SYSROOT" install
 	ln -sf bash "$SYSROOT/bin/sh"
 }
