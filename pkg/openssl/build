@@ -8,6 +8,8 @@ prepare() {
 	if [ ! -z "$PYGOS_BUILD_CONTAINER" ]; then
 		sed -i 's#/usr/bin/env perl#/bin/perl#g' Configure
 	fi
+
+	apply_patches
 }
 
 build() {

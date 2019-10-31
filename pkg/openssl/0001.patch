@@ -1,0 +1,13 @@
+diff --git a/util/mkbuildinf.pl.old b/util/mkbuildinf.pl
+index c9324a9..a3f0116 100755
+--- a/util/mkbuildinf.pl.old
++++ b/util/mkbuildinf.pl
+@@ -28,7 +28,7 @@ print <<"END_OUTPUT";
+  */
+ 
+ #define PLATFORM "platform: $platform"
+-#define DATE "built on: $date"
++#define DATE "built on: Thu Jan 1 00:00:00 1970 UTC"
+ 
+ /*
+  * Generate compiler_flags as an array of individual characters. This is a
