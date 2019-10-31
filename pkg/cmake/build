@@ -15,6 +15,10 @@ build() {
 	      -DKWSYS_LFS_WORKS=TRUE -DKWSYS_CHAR_IS_SIGNED=TRUE \
 	      "$1"
 
+	if grep isystem -r *; then
+		grep -l isystem -r * | xargs sed -i 's#-isystem [^ ]*##g'
+	fi
+
 	make -j $NUMJOBS
 }
 
