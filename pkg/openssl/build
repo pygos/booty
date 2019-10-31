@@ -39,4 +39,6 @@ build() {
 
 deploy() {
 	make DESTDIR="$SYSROOT" install
+
+	rm "$SYSROOT/lib/libcrypto.a"
 }

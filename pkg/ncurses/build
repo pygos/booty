@@ -21,4 +21,10 @@ deploy() {
 	make DESTDIR="$SYSROOT" install
 	rm "$SYSROOT/bin/ncursesw6-config"
 	ln -s libncursesw.so.6 "$SYSROOT/lib/libcurses.so"
+
+	rm "$SYSROOT/lib/libformw.a"
+	rm "$SYSROOT/lib/libmenuw.a"
+	rm "$SYSROOT/lib/libncurses++w.a"
+	rm "$SYSROOT/lib/libncursesw.a"
+	rm "$SYSROOT/lib/libpanelw.a"
 }

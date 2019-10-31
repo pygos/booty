@@ -21,4 +21,6 @@ deploy() {
 	mkdir -p "$SYSROOT/bin"
 	local name=$(basename $(ls "$SYSROOT"/lib/ld-musl-*))
 	ln -sf "/lib/$name" "$SYSROOT/bin/ldd"
+
+	rm "$SYSROOT/lib/libc.a"
 }
