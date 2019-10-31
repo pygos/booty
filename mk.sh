@@ -38,7 +38,7 @@ source "$SCRIPTDIR/util/sqfs.sh"
 ############################### build packages ###############################
 echo "--- building toolchain ---"
 
-for pkg in linux_headers tc-binutils tc-gcc1 musl tc-gcc2 toolchain; do
+for pkg in linux_headers tc-binutils tc-gcc1 musl tc-gcc2 tc-file toolchain; do
 	include_pkg "$pkg"
 	build_package
 done
@@ -50,7 +50,7 @@ export PKG_CONFIG_LIBDIR="$SYSROOT/lib/pkgconfig"
 export PKG_CONFIG_PATH="$SYSROOT/lib/pkgconfig"
 
 for pkg in basefiles ncurses readline bash coreutils util-linux xz gzip bzip2 \
-	   diffutils findutils grep gawk sed tar make zlib flex bison \
+	   diffutils findutils grep gawk sed tar make zlib file flex bison \
 	   gmp mpfr mpc openssl curl inetutils less squashfs-tools-ng patch \
 	   perl5 binutils gcc rhash expat libarchive jsoncpp libuv cmake m4 \
 	   autoconf autoconf-archive automake pkg-config libtool; do
