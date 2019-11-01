@@ -15,7 +15,7 @@ build() {
 		     --disable-makeinstall-chown \
 		     --disable-makeinstall-setuid
 
-	make -j $NUMJOBS
+	make -j 1
 }
 
 deploy() {
