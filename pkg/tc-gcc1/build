@@ -30,6 +30,7 @@ build() {
 		     --disable-libatomic --disable-bootstrap \
 		     --disable-libquadmath --disable-threads \
 		     --enable-languages=c --with-newlib \
+		     --disable-lto --disable-tls \
 		     --with-as="$TCDIR/bin/$TARGET-as" \
 		     --with-ld="$TCDIR/bin/$TARGET-ld" \
 		     --with-arch="$GCC_CPU"

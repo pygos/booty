@@ -3,9 +3,9 @@ source "$SCRIPTDIR/pkg/tc-binutils/build"
 
 build() {
 	run_configure "$1" --disable-nls --disable-multilib \
-		     --enable-shared --enable-plugins --enable-relro \
+		     --enable-shared --disable-plugins --enable-relro \
 		     --with-pic --enable-deterministic-archives \
-		     --target="$TARGET"
+		     --target="$TARGET" --disable-lto --with-system-zlib
 
 	make configure-host
 	make -j $NUMJOBS

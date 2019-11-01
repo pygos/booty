@@ -6,8 +6,8 @@ build() {
 		     --build="$HOSTTUPLE" --host="$HOSTTUPLE" \
 		     --with-sysroot="$SYSROOT" --disable-bootstrap \
 		     --disable-nls --enable-languages=c,c++ \
-		     --enable-c99 --enable-long-long \
-		     --enable-libmudflap --disable-multilib \
+		     --enable-c99 --enable-long-long --disable-lto \
+		     --enable-libmudflap --disable-multilib --disable-tls \
 		     --disable-libsanitizer --disable-libquadmath \
 		     --with-as="$TCDIR/bin/$TARGET-as" \
 		     --with-ld="$TCDIR/bin/$TARGET-ld" \

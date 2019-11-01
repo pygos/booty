@@ -11,9 +11,9 @@ prepare() {
 build() {
 	$1/configure --prefix="$TCDIR" --target="$TARGET" --disable-nls \
 		     --with-sysroot="$SYSROOT" --disable-multilib \
-		     --enable-shared --enable-plugins --enable-relro \
+		     --enable-shared --disable-plugins --enable-relro \
 		     --with-pic --enable-deterministic-archives \
-		     --with-lib-path="$SYSROOT/lib"
+		     --with-lib-path="$SYSROOT/lib" --disable-lto
 
 	make configure-host
 	make -j $NUMJOBS

@@ -6,6 +6,7 @@ build() {
 		      --enable-languages=c,c++ --enable-c99 \
 		      --enable-long-long --enable-libmudflap \
 		      --disable-multilib --disable-libsanitizer \
+		      --disable-bootstrap --disable-lto --disable-tls \
 		      --disable-libquadmath --with-arch="$GCC_CPU" \
 		      --with-native-system-header-dir="/include"
 
