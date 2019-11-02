@@ -5,10 +5,6 @@ URL="https://www.openssl.org/source"
 SHA256SUM="1e3a91bc1f9dfce01af26026f856e064eab4c8ee0a8f457b5ae30b40b8b711f2"
 
 prepare() {
-	if [ ! -z "$PYGOS_BUILD_CONTAINER" ]; then
-		sed -i 's#/usr/bin/env perl#/bin/perl#g' Configure
-	fi
-
 	apply_patches
 }
 

@@ -15,7 +15,4 @@ build() {
 
 deploy() {
 	make DESTDIR="$SYSROOT" install
-
-	sed -i 's#/usr/bin#/bin#g' "$SYSROOT/bin/libtool"
-	sed -i 's#/usr/bin#/bin#g' "$SYSROOT/bin/libtoolize"
 }

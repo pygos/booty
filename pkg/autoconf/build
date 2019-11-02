@@ -16,11 +16,4 @@ build() {
 
 deploy() {
 	make DESTDIR="$SYSROOT" install
-
-	sed -i 's#/usr/bin#/bin#g' "$SYSROOT/bin/autoheader"
-	sed -i 's#/usr/bin#/bin#g' "$SYSROOT/bin/autoconf"
-	sed -i 's#/usr/bin#/bin#g' "$SYSROOT/bin/autoreconf"
-	sed -i 's#/usr/bin#/bin#g' "$SYSROOT/bin/autoscan"
-	sed -i 's#/usr/bin#/bin#g' "$SYSROOT/bin/autoupdate"
-	sed -i 's#/usr/bin#/bin#g' "$SYSROOT/bin/ifnames"
 }

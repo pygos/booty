@@ -41,6 +41,18 @@ dir share/aclocal-1.16 0755 0 0
 dir share/autoconf 0755 0 0
 dir share/automake-1.16 0755 0 0
 dir share/cmake-3.15 0755 0 0
+dir usr 0755 0 0
+slink usr/bin 0777 0 0 /bin
+slink usr/lib 0777 0 0 /lib
+slink usr/share 0777 0 0 /share
+slink usr/include 0777 0 0 /include
+slink usr/etc 0777 0 0 /etc
+dir usr/local 0755 0 0
+slink usr/local/bin 0777 0 0 /bin
+slink usr/local/lib 0777 0 0 /lib
+slink usr/local/share 0777 0 0 /share
+slink usr/local/include 0777 0 0 /include
+slink usr/local/etc 0777 0 0 /etc
 dir $TARGET 0755 0 0
 dir $TARGET/bin 0755 0 0
 dir $TARGET/lib 0755 0 0

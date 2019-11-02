@@ -15,10 +15,4 @@ build() {
 
 deploy() {
 	make DESTDIR="$SYSROOT" install
-
-	sed -i 's#/usr/bin#/bin#g' "$SYSROOT/bin/autom4te"
-	sed -i 's#/usr/bin#/bin#g' "$SYSROOT/bin/automake"
-	sed -i 's#/usr/bin#/bin#g' "$SYSROOT/bin/automake-1.16"
-	sed -i 's#/usr/bin#/bin#g' "$SYSROOT/bin/aclocal"
-	sed -i 's#/usr/bin#/bin#g' "$SYSROOT/bin/aclocal-1.16"
 }
