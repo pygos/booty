@@ -74,7 +74,7 @@ if [ -z "$PYGOS_BUILD_CONTAINER" ]; then
 
 	echo "--- running stage 2 ---"
 
-	unshare -fimpuUr "$SCRIPTDIR/util/runchroot.sh" "$SYSROOT"
+	unshare -fimpuUr "$SCRIPTDIR/util/runchroot.sh" "$SYSROOT" "$BUILDROOT"
 else
 	echo "--- generating squashfs ---"
 	pushd "$SYSROOT" > /dev/null
