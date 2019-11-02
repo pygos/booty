@@ -58,6 +58,8 @@ for pkg in basefiles ncurses readline bash coreutils util-linux xz gzip bzip2 \
 	build_package
 done
 
+strip_files "$SYSROOT/bin" "$SYSROOT/lib" "$SYSROOT/$TARGET/bin"
+
 if [ -z "$PYGOS_BUILD_CONTAINER" ]; then
 	echo "--- copying bootstrap scripts to sysroot ---"
 
@@ -81,7 +83,6 @@ else
 	gen_sqfs_file_list >> "$BUILDROOT/files.txt"
 	popd > /dev/null
 
-	strip_files "$SYSROOT/bin" "$SYSROOT/lib" "$SYSROOT/$TARGET/bin"
 	gensquashfs -j $NUMJOBS -D "$SYSROOT" -F "$BUILDROOT/files.txt" -fq rootfs.sqfs
 fi
 
