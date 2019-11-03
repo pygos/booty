@@ -9,24 +9,22 @@ prepare() {
 }
 
 build() {
-	ADJTIME_PATH=/var/lib/hwclock/adjtime \
 	run_configure "$1" --disable-pylibmount --without-python \
 		     --without-systemd --without-systemdsystemunitdir \
 		     --disable-makeinstall-chown \
 		     --disable-makeinstall-setuid \
-		     --disable-rpath --disable-symvers --disable-tls
+		     --disable-rpath --disable-symvers --disable-tls \
+		     --disable-all-programs --enable-mount --enable-kill \
+		     --enable-more --enable-libmount --enable-libblkid
 
 	make -j 1
 }
 
 deploy() {
-	mkdir -p "$SYSROOT/var/lib/hwclock"
-
 	unfuck_libtool
 	make DESTDIR="$SYSROOT" install
 
 	if [ -e "$SYSROOT/sbin" ]; then
-		mv "$SYSROOT/sbin"/* "$SYSROOT/bin"
 		rmdir "$SYSROOT/sbin"
 	fi
 }
