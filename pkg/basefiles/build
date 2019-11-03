@@ -15,7 +15,6 @@ deploy() {
 	mkdir -p "$SYSROOT/usr/local"
 	cp "$SCRIPTDIR/pkg/$PKGNAME/group" "$SYSROOT/etc"
 	cp "$SCRIPTDIR/pkg/$PKGNAME/passwd" "$SYSROOT/etc"
-	cp "$SCRIPTDIR/pkg/$PKGNAME/bashrc" "$SYSROOT/etc"
 	cp "$SCRIPTDIR/pkg/$PKGNAME/hostname" "$SYSROOT/etc"
 	cp "$SCRIPTDIR/pkg/$PKGNAME/hosts" "$SYSROOT/etc"
 	cp "$SCRIPTDIR/pkg/$PKGNAME/resolv.conf" "$SYSROOT/etc"
