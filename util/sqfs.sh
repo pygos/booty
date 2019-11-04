@@ -31,7 +31,6 @@ dir tmp 0755 0 0
 dir root 0700 0 0
 dir share 0755 0 0
 dir proc 0755 0 0
-dir share/awk 0755 0 0
 dir share/tabset 0755 0 0
 dir share/terminfo 0755 0 0
 dir share/aclocal 0755 0 0
@@ -41,6 +40,7 @@ dir share/aclocal-1.16 0755 0 0
 dir share/autoconf 0755 0 0
 dir share/automake-1.16 0755 0 0
 dir share/cmake-3.15 0755 0 0
+dir share/misc 0755 0 0
 dir usr 0755 0 0
 slink usr/bin 0777 0 0 /bin
 slink usr/lib 0777 0 0 /lib
@@ -60,18 +60,18 @@ dir $TARGET/lib/ldscripts 0755 0 0
 file init.sh 0700 0 0
 _EOF
 
-	sqfs_dir_scan "include" "lib" "etc" "share/awk" "share/tabset"
+	sqfs_dir_scan "include" "lib" "etc" "share/tabset"
 	sqfs_dir_scan "share/terminfo" "share/aclocal" "share/autoconf"
 	sqfs_dir_scan "share/bison" "share/gcc-9.2.0" "share/aclocal-1.16"
 	sqfs_dir_scan "share/automake-1.16" "share/cmake-3.15"
 
-	sqfs_slink_scan "bin" "include" "etc" "lib" "share/awk" "share/tabset"
+	sqfs_slink_scan "bin" "include" "etc" "lib" "share/tabset"
 	sqfs_slink_scan "share/aclocal" "share/bison" "share/terminfo"
 	sqfs_slink_scan "share/gcc-9.2.0" "share/aclocal-1.16" "share/autoconf"
 	sqfs_slink_scan "share/automake-1.16" "share/cmake-3.15"
 
 	sqfs_file_scan "0755" "bin" "$TARGET/bin"
-	sqfs_file_scan "0644" "etc" "include" "share/awk" "share/tabset"
+	sqfs_file_scan "0644" "etc" "include" "share/misc" "share/tabset"
 	sqfs_file_scan "0644" "share/aclocal" "share/bison" "share/gcc-9.2.0"
 	sqfs_file_scan "0644" "share/aclocal-1.16" "share/autoconf"
 	sqfs_file_scan "0644" "share/automake-1.16" "share/cmake-3.15"
