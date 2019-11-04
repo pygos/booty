@@ -1,13 +1,13 @@
 sqfs_dir_scan() {
 	for f in $@; do
-		find -H "$f" -type d -printf "dir \"%p\" 0%m 0 0\\n" |\
+		find -H "$f" -type d -printf "dir \"%p\" 0755 0 0\\n" |\
 			tail -n +2
 	done
 }
 
 sqfs_slink_scan() {
 	for f in $@; do
-		find -H "$f" -type l -printf "slink \"%p\" 0%m 0 0 %l\\n"
+		find -H "$f" -type l -printf "slink \"%p\" 0777 0 0 %l\\n"
 	done
 }
 
