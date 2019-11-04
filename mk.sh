@@ -49,10 +49,9 @@ export PKG_CONFIG_SYSROOT_DIR="$SYSROOT"
 export PKG_CONFIG_LIBDIR="$SYSROOT/lib/pkgconfig"
 export PKG_CONFIG_PATH="$SYSROOT/lib/pkgconfig"
 
-for pkg in basefiles ncurses readline bash coreutils util-linux xz gzip bzip2 \
-	   diffutils findutils grep gawk sed tar make zlib file flex bison \
-	   gmp mpfr mpc openssl curl inetutils less squashfs-tools-ng patch \
-	   perl5 binutils gcc rhash expat libarchive jsoncpp libuv cmake m4 \
+for pkg in basefiles ncurses readline bash xz make zlib file busybox flex \
+	   bison gmp mpfr mpc openssl curl squashfs-tools-ng patch perl5 \
+	   rhash expat libarchive jsoncpp libuv binutils gcc cmake m4 \
 	   autoconf autoconf-archive automake pkg-config libtool; do
 	include_pkg "$pkg"
 	build_package

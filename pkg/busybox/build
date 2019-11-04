@@ -1,0 +1,41 @@
+VERSION="1.31.1"
+SRCDIR="busybox-$VERSION"
+TARBALL="busybox-$VERSION.tar.bz2"
+URL="https://busybox.net/downloads"
+SHA256SUM="d0f940a72f648943c1f2211e0e3117387c31d765137d92bd8284a3fb9752a998"
+
+prepare() {
+	return
+}
+
+build() {
+	cp "$SCRIPTDIR/pkg/$PKGNAME/busybox.config" "$PKGBUILDDIR/.config"
+
+	export KBUILD_OUTPUT="$PKGBUILDDIR"
+
+	make -C "$1" O="$PKGBUILDDIR" CROSS_COMPILE="${TARGET}-" oldconfig
+	sed -i "$PKGBUILDDIR/.config" -e 's,^CONFIG_CROSS_COMPILE=.*,CONFIG_CROSS_COMPILE="'$TARGET'-",'
+	sed -i "$PKGBUILDDIR/.config" -e 's,^CONFIG_SYSROOT=.*,CONFIG_SYSROOT="'$SYSROOT'",'
+
+	make -C "$1" O="$PKGBUILDDIR" CROSS_COMPILE="${TARGET}-" -j $NUMJOBS
+}
+
+deploy() {
+	mkdir -p "$SYSROOT/bin"
+	cp "$PKGBUILDDIR/busybox" "$SYSROOT/bin"
+
+	for f in "[" "[[" arch awk base64 basename bc cat chgrp chmod chown \
+		 cksum cmp comm cp cut date dc dd df diff dirname dos2unix du \
+		 echo egrep env expand expr factor false fgrep find fold fsync\
+		 getopt grep groups head hostid hostname id install less link\
+		 ln logname ls md5sum mkdir mkfifo mknod mktemp more mount \
+		 mountpoint mv netcat nice nl nohup nproc nslookup od paste \
+		 patch printenv printf pwd readlink realpath rm rmdir sed seq \
+		 sha1sum sha256sum sha3sum sha512sum shred shuf sleep sort \
+		 split stat stty sum sync tac tail tee test timeout touch tr \
+		 true truncate tty umount uname unexpand uniq unix2dos unlink \
+		 usleep uudecode uuencode wc whoami whois xargs yes bunzip2 \
+		 bzcat bzip2 gunzip gzip zcat tar; do
+		ln -s "busybox" "$SYSROOT/bin/$f"
+	done
+}

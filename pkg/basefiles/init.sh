@@ -19,16 +19,13 @@ ln -sf /proc/self/fd/2 /dev/stderr
 hostname -F /etc/hostname
 mount -t proc none /proc
 
-eval $(dircolors -b)
-
 alias ..='cd ..'
 alias ...='cd ../..'
 alias cls='tput reset'
-alias dir='ls --color=auto -l'
-alias ll='ls --color=auto -l'
-alias la='ls --color=auto -la'
-alias l='ls --color=auto -alF'
-alias ls='ls --color=auto'
+alias dir='ls -l'
+alias ll='ls -l'
+alias la='ls -la'
+alias l='ls -alF'
 alias rm='rm -I'
 alias cp='cp -i'
 
