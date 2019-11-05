@@ -9,7 +9,7 @@ prepare() {
 }
 
 build() {
-	tar lxf "$PKGDOWNLOADDIR/$TARBALL" --strip 1
+	tar -xf "$PKGDOWNLOADDIR/$TARBALL" --strip 1
 
 	grep -rl '/usr/include' * | xargs sed -i 's#/usr/include#/include#g'
 	grep -rl '/usr/bin' * | xargs sed -i 's#/usr/lib#/lib#g'
