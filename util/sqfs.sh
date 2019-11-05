@@ -1,13 +1,16 @@
 sqfs_dir_scan() {
 	for f in $@; do
-		find -H "$f" -type d -printf "dir \"%p\" 0755 0 0\\n" |\
-			tail -n +2
+		find -H "$f" -type d | tail -n +2 | while read dir; do
+			echo "dir \"$dir\" 0755 0 0"
+		done
 	done
 }
 
 sqfs_slink_scan() {
 	for f in $@; do
-		find -H "$f" -type l -printf "slink \"%p\" 0777 0 0 %l\\n"
+		find -H "$f" -type l | while read slink; do
+			echo "slink \"$slink\" 0777 0 0 $(readlink $slink)"
+		done
 	done
 }
 
@@ -16,7 +19,9 @@ sqfs_file_scan() {
 	shift
 
 	for f in $@; do
-		find -H "$f" -type f -printf "file \"%p\" $mode 0 0\\n"
+		find -H "$f" -type f | while read fname; do
+			echo "file \"$fname\" $mode 0 0"
+		done
 	done
 }
 
@@ -77,6 +82,11 @@ _EOF
 	sqfs_file_scan "0644" "share/automake-1.16" "share/cmake-3.15"
 	sqfs_file_scan "0644" "share/terminfo" "$TARGET/lib/ldscripts"
 
-	find -H "lib" -name "*.so*" -type f -printf "file \"%p\" 0755 0 0\\n"
-	find -H "lib" ! -name "*.so*" -type f -printf "file \"%p\" 0644 0 0\\n"
+	find -H "lib" -name "*.so*" -type f | while read fname; do
+		echo "file \"$fname\" 0755 0 0"
+	done
+
+	find -H "lib" ! -name "*.so*" -type f | while read fname; do
+		echo "file \"$fname\" 0644 0 0"
+	done
 }
