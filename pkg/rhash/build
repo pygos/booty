@@ -9,7 +9,7 @@ prepare() {
 }
 
 build() {
-	tar zxf "$PKGDOWNLOADDIR/$TARBALL" --strip 1
+	cp -r $1/* "$PKGBUILDDIR"
 
 	./configure --cc=${TARGET}-gcc --target=${TARGET} --prefix="" \
 		    --enable-openssl --enable-lib-shared \
