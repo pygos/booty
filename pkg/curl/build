@@ -15,15 +15,4 @@ build() {
 
 deploy() {
 	make DESTDIR="$SYSROOT" install
-
-	local bundle="$SYSROOT/etc/ssl/cert.pem"
-	local checksum="527e23d1e83381583cc2efe4625b01a00baa990afc877bb617727e8bffab17a0dc4f36b60162bad375b576ff09bc27acc7e0f095a34150f23d61825b8a7fb81f"
-
-	curl -L "https://curl.haxx.se/ca/cacert-2019-08-28.pem" \
-	     -o "$bundle" --silent --show-error
-
-	echo "$checksum  $bundle" | sha512sum -c --quiet "-"
-
-	ln -sf "/etc/ssl/cert.pem" "$SYSROOT/etc/ssl/certs/ca-bundle.crt"
-	ln -sf "/etc/ssl/cert.pem" "$SYSROOT/etc/ssl/certs/ca-bundle.trust.crt"
 }
