@@ -1,0 +1,13 @@
+diff --git a/contrib/download_prerequisites.old b/contrib/download_prerequisites
+index 72976c4..1b77ed9 100755
+--- a/contrib/download_prerequisites.old
++++ b/contrib/download_prerequisites
+@@ -164,7 +164,7 @@ do
+                     chksum='shasum -a 512 --check'
+                   ;;
+                   *)
+-                    chksum='sha512sum --check'
++                    chksum='sha512sum -c'
+                   ;;
+                 esac
+                 chksum_extension='sha512'
