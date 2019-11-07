@@ -3,8 +3,6 @@
 export PATH="/bin"
 export HOME="/root"
 export SHELL="/bin/sh"
-export PROMPT_COMMAND=""
-export PS1="\[\033[1;31m\][\u@\h \W]# \[\033[0m\]"
 export TERM="xterm-256color"
 export CURL_CA_BUNDLE="/etc/ssl/cert.pem"
 export PYGOS_BUILD_CONTAINER="yes"
