@@ -18,7 +18,6 @@ build() {
 deploy() {
 	local LINUX_CPU="$(uname -m)"
 
-	export KBUILD_OUTPUT="$PKGBUILDDIR"
 	make -C "$1" O="$PKGBUILDDIR" ARCH="$LINUX_CPU" \
 	     INSTALL_HDR_PATH="$SYSROOT" headers_install
 

@@ -11,8 +11,6 @@ prepare() {
 build() {
 	cp "$SCRIPTDIR/pkg/$PKGNAME/busybox.config" "$PKGBUILDDIR/.config"
 
-	export KBUILD_OUTPUT="$PKGBUILDDIR"
-
 	make -C "$1" O="$PKGBUILDDIR" CROSS_COMPILE="${TARGET}-" oldconfig
 	sed -i "$PKGBUILDDIR/.config" -e 's,^CONFIG_CROSS_COMPILE=.*,CONFIG_CROSS_COMPILE="'$TARGET'-",'
 	sed -i "$PKGBUILDDIR/.config" -e 's,^CONFIG_SYSROOT=.*,CONFIG_SYSROOT="'$SYSROOT'",'

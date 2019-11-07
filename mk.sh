@@ -21,6 +21,8 @@ TCDIR="$BUILDROOT/toolchain"
 GCC_CPU="x86-64"
 
 export SOURCE_DATE_EPOCH="0"
+export KBUILD_OUTPUT="$PKGBUILDDIR"
+export KCONFIG_NOTIMESTAMP=1
 export PATH="$TCDIR/bin:$PATH"
 
 mkdir -p "$TCDIR/bin"
