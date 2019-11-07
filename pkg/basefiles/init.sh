@@ -27,9 +27,5 @@ alias l='ls -alF'
 alias rm='rm -I'
 alias cp='cp -i'
 
-shopt -s histappend
-shopt -s checkwinsize
-history -a
-
 cd
 exec /bin/sh $@
