@@ -1,5 +1,5 @@
 # inherit from cross toolchain package
-source "$SCRIPTDIR/pkg/tc-binutils/build"
+. "$SCRIPTDIR/pkg/tc-binutils/build"
 
 build() {
 	run_configure "$1" --disable-nls --disable-multilib \

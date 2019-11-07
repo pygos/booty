@@ -1,3 +1,5 @@
+#!/bin/sh
+
 sqfs_dir_scan() {
 	for f in $@; do
 		find -H "$f" -type d | tail -n +2 | while read dir; do

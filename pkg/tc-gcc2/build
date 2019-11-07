@@ -1,5 +1,5 @@
 # inherit package details from first stage GCC
-source "$SCRIPTDIR/pkg/tc-gcc1/build"
+. "$SCRIPTDIR/pkg/tc-gcc1/build"
 
 build() {
 	$1/configure --prefix="$TCDIR" --target="$TARGET" \

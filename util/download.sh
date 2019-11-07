@@ -1,3 +1,5 @@
+#!/bin/sh
+
 fetch_package() {
 	echo "$PKGNAME - download"
 
@@ -10,7 +12,7 @@ fetch_package() {
 		     -L "$URL/$TARBALL"
 	fi
 
-	echo "$SHA256SUM  $PKGDOWNLOADDIR/${TARBALL}" | sha256sum -c --quiet "-"
+	echo "$SHA256SUM  $PKGDOWNLOADDIR/${TARBALL}" | sha256sum -c "-"
 
 	if [ ! -e "$PKGSRCDIR/$SRCDIR" ]; then
 		local LOGFILE="$PKGLOGDIR/${PKGNAME}-prepare.log"
@@ -18,10 +20,10 @@ fetch_package() {
 		echo "$PKGNAME - unpack"
 		tar -C "$PKGSRCDIR" -xf "$PKGDOWNLOADDIR/$TARBALL"
 
-		pushd "$PKGSRCDIR/$SRCDIR" > /dev/null
+		cd "$PKGSRCDIR/$SRCDIR"
 		echo "$PKGNAME - prepare"
-		prepare "$SCRIPTDIR/pkg/$PKGNAME" &>> "$LOGFILE" < /dev/null
-		popd > /dev/null
+		prepare "$SCRIPTDIR/pkg/$PKGNAME" > "$LOGFILE" 2>&1 < /dev/null
+		cd "$BUILDROOT"
 
 		gzip -f "$LOGFILE"
 	fi

@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
 export PATH="/bin"
 export HOME="/root"
-export SHELL="/bin/bash"
+export SHELL="/bin/sh"
 export PROMPT_COMMAND=""
 export PS1="\[\033[1;31m\][\u@\h \W]# \[\033[0m\]"
 export TERM="xterm-256color"
@@ -34,4 +34,4 @@ shopt -s checkwinsize
 history -a
 
 cd
-exec /bin/bash --noprofile --norc $@
+exec /bin/sh $@

@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 
 set -e
 
 ################################ basic setup ################################
 BUILDROOT="$(pwd)"
-SCRIPTDIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+SCRIPTDIR=$(cd $(dirname "$0") && pwd)
 NUMJOBS=$(grep -e "^processor" /proc/cpuinfo | wc -l)
 
 PKGSRCDIR="$BUILDROOT/src"
@@ -28,12 +28,12 @@ mkdir -p "$TCDIR/bin"
 CMAKETCFILE="$TCDIR/toolchain.cmake"
 
 ############################# include utilities ##############################
-source "$SCRIPTDIR/util/download.sh"
-source "$SCRIPTDIR/util/pkgcmd.sh"
-source "$SCRIPTDIR/util/misc.sh"
-source "$SCRIPTDIR/util/autotools.sh"
-source "$SCRIPTDIR/util/build_package.sh"
-source "$SCRIPTDIR/util/sqfs.sh"
+. "$SCRIPTDIR/util/download.sh"
+. "$SCRIPTDIR/util/pkgcmd.sh"
+. "$SCRIPTDIR/util/misc.sh"
+. "$SCRIPTDIR/util/autotools.sh"
+. "$SCRIPTDIR/util/build_package.sh"
+. "$SCRIPTDIR/util/sqfs.sh"
 
 ############################### build packages ###############################
 echo "--- building toolchain ---"
@@ -78,9 +78,9 @@ if [ -z "$PYGOS_BUILD_CONTAINER" ]; then
 	unshare -fimpuUr "$SCRIPTDIR/util/runchroot.sh" "$SYSROOT" "$BUILDROOT"
 else
 	echo "--- generating squashfs ---"
-	pushd "$SYSROOT" > /dev/null
+	cd "$SYSROOT"
 	gen_sqfs_file_list >> "$BUILDROOT/files.txt"
-	popd > /dev/null
+	cd "$BUILDROOT"
 
 	gensquashfs -j $NUMJOBS -D "$SYSROOT" -F "$BUILDROOT/files.txt" -fq rootfs.sqfs
 fi

@@ -1,3 +1,5 @@
+#!/bin/sh
+
 run_configure() {
 	local srcdir="$1"
 	shift

@@ -1,3 +1,5 @@
+#!/bin/sh
+
 build_package() {
 	if [ -f "$PKGLOGDIR/${PKGNAME}.done" ]; then
 		return

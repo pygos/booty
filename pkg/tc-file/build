@@ -1,4 +1,4 @@
-source "$SCRIPTDIR/pkg/file/build"
+. "$SCRIPTDIR/pkg/file/build"
 
 build() {
 	"$1/configure" --prefix="$TCDIR" --disable-static

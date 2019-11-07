@@ -1,3 +1,5 @@
+#!/bin/sh
+
 apply_patches() {
 	local PATCH
 

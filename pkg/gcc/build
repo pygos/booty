@@ -1,5 +1,5 @@
 # inherit package details from toolchain package
-source "$SCRIPTDIR/pkg/tc-gcc1/build"
+. "$SCRIPTDIR/pkg/tc-gcc1/build"
 
 build() {
 	run_configure "$1" --target="$TARGET" --disable-nls \

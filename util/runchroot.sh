@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 SYSROOT="$1"
 shift

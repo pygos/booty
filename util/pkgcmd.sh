@@ -1,9 +1,11 @@
+#!/bin/sh
+
 include_pkg() {
 	PKGNAME="$1"		# globally visible package name
 
 	unset -f build deploy prepare check_update
 	unset -v VERSION TARBALL URL SRCDIR SHA256SUM DEPENDS SUBPKG
-	source "$SCRIPTDIR/pkg/$PKGNAME/build"
+	. "$SCRIPTDIR/pkg/$PKGNAME/build"
 
 	if [ -z "$SUBPKG" ]; then
 		SUBPKG="$PKGNAME"
@@ -17,9 +19,9 @@ run_pkg_command() {
 
 	echo "$PKGNAME - $FUNCTION"
 
-	pushd "$PKGBUILDDIR" > /dev/null
-	$FUNCTION "$SRC" &>> "$LOGFILE" < /dev/null
-	popd > /dev/null
+	cd "$PKGBUILDDIR"
+	$FUNCTION "$SRC" > "$LOGFILE" 2>&1 < /dev/null
+	cd "$BUILDROOT"
 
 	gzip -f "$LOGFILE"
 }
