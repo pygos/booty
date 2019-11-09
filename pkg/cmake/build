@@ -19,7 +19,7 @@ build() {
 		grep -l isystem -r * | xargs sed -i 's#-isystem [^ ]*##g'
 	fi
 
-	make -j $NUMJOBS
+	make -j 1
 }
 
 deploy() {
