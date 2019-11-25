@@ -1,0 +1,13 @@
+diff --git a/gcc/toplev.c b/gcc/toplev.c
+index 397a164..dcf2d45 100644
+--- a/gcc/toplev.c
++++ b/gcc/toplev.c
+@@ -2186,6 +2186,8 @@ do_compile ()
+       if (!no_backend)
+ 	backend_init ();
+ 
++      set_random_seed(main_input_filename);
++
+       /* Language-dependent initialization.  Returns true on success.  */
+       if (lang_dependent_init (main_input_filename))
+         {

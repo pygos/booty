@@ -1,0 +1,12 @@
+diff --git a/gcc/opts.c b/gcc/opts.c
+index 6164d49..07bab69 100644
+--- a/gcc/opts.c
++++ b/gcc/opts.c
+@@ -448,7 +448,6 @@ static const struct default_options default_options_table[] =
+     { OPT_LEVELS_1_PLUS, OPT_fcprop_registers, NULL, 1 },
+     { OPT_LEVELS_1_PLUS, OPT_fdefer_pop, NULL, 1 },
+     { OPT_LEVELS_1_PLUS, OPT_fforward_propagate, NULL, 1 },
+-    { OPT_LEVELS_1_PLUS, OPT_fguess_branch_probability, NULL, 1 },
+     { OPT_LEVELS_1_PLUS, OPT_fipa_profile, NULL, 1 },
+     { OPT_LEVELS_1_PLUS, OPT_fipa_pure_const, NULL, 1 },
+     { OPT_LEVELS_1_PLUS, OPT_fipa_reference, NULL, 1 },
