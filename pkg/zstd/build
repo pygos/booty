@@ -1,0 +1,20 @@
+VERSION="1.4.4"
+SRCDIR="zstd-${VERSION}"
+TARBALL="${SRCDIR}.tar.gz"
+URL="https://github.com/facebook/zstd/releases/download/v${VERSION}"
+SHA256SUM="59ef70ebb757ffe74a7b3fe9c305e2ba3350021a918d168a046c6300aeea9315"
+
+prepare() {
+	return
+}
+
+build() {
+	cmake -DCMAKE_TOOLCHAIN_FILE="$CMAKETCFILE" \
+	      -DCMAKE_INSTALL_PREFIX="" "$1/build/cmake"
+
+	make -j $NUMJOBS
+}
+
+deploy() {
+	make DESTDIR="$SYSROOT" install
+}
