@@ -32,8 +32,8 @@ deploy() {
 		 sha1sum sha256sum sha3sum sha512sum shred shuf sleep sort \
 		 split stat stty sum sync tac tail tee test timeout touch tr \
 		 true truncate tty umount uname unexpand uniq unix2dos unlink \
-		 usleep uudecode uuencode wc whoami whois xargs yes bunzip2 \
-		 bzcat bzip2 gunzip gzip zcat tar sh ash bash; do
+		 usleep uudecode uuencode wc whoami whois xargs yes \
+		 gunzip gzip zcat tar sh ash bash; do
 		ln -s "busybox" "$SYSROOT/bin/$f"
 	done
 }
