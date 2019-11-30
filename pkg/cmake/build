@@ -11,15 +11,16 @@ prepare() {
 build() {
 	cmake -DCMAKE_TOOLCHAIN_FILE="$CMAKETCFILE" \
 	      -DCMAKE_INSTALL_PREFIX="" -DCMAKE_USE_SYSTEM_LIBRARIES=1 \
-	      -DCTEST_USE_XMLRPC=OFF -DBUILD_CursesDialog=OFF \
+	      -DCTEST_USE_XMLRPC=OFF -DBUILD_CursesDialog=TRUE \
 	      -DKWSYS_LFS_WORKS=TRUE -DKWSYS_CHAR_IS_SIGNED=TRUE \
+	      -DCMAKE_BUILD_TYPE="MinSizeRel" -DCMake_BUILD_LTO=OFF \
 	      "$1"
 
 	if grep isystem -r *; then
 		grep -l isystem -r * | xargs sed -i 's#-isystem [^ ]*##g'
 	fi
 
-	make -j 1
+	make -j $NUMJOBS
 }
 
 deploy() {
