@@ -13,10 +13,11 @@ run_pkg_command() {
 	local FUNCTION="$1"
 	local LOGFILE="$PKGLOGDIR/${PKGNAME}-${FUNCTION}.log"
 	local SRC="$PKGSRCDIR/$SRCDIR"
+	local WORKDIR="$2"
 
 	echo "$PKGNAME - $FUNCTION"
 
-	cd "$PKGBUILDDIR"
+	cd "$WORKDIR"
 	$FUNCTION "$SRC" > "$LOGFILE" 2>&1 < /dev/null
 	cd "$BUILDROOT"
 
@@ -38,17 +39,10 @@ fetch_package() {
 	echo "$SHA256SUM  $PKGDOWNLOADDIR/${TARBALL}" | sha256sum -c "-"
 
 	if [ ! -e "$PKGSRCDIR/$SRCDIR" ]; then
-		local LOGFILE="$PKGLOGDIR/${PKGNAME}-prepare.log"
-
 		echo "$PKGNAME - unpack"
 		tar -C "$PKGSRCDIR" -xf "$PKGDOWNLOADDIR/$TARBALL"
 
-		cd "$PKGSRCDIR/$SRCDIR"
-		echo "$PKGNAME - prepare"
-		prepare "$SCRIPTDIR/pkg/$PKGNAME" > "$LOGFILE" 2>&1 < /dev/null
-		cd "$BUILDROOT"
-
-		gzip -f "$LOGFILE"
+		run_pkg_command "prepare" "$PKGSRCDIR/$SRCDIR"
 	fi
 }
 
@@ -65,8 +59,8 @@ build_package() {
 		mount -t tmpfs none "$PKGBUILDDIR"
 	fi
 
-	run_pkg_command "build"
-	run_pkg_command "deploy"
+	run_pkg_command "build" "$PKGBUILDDIR"
+	run_pkg_command "deploy" "$PKGBUILDDIR"
 	deploy_dev_cleanup
 
 	if [ -z "$PYGOS_BUILD_CONTAINER" ]; then
