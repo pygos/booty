@@ -4,10 +4,6 @@ TARBALL="${SRCDIR}.tar.xz"
 URL="https://infraroot.at/pygos"
 SHA256SUM="d5cf5307fa18c977836e58339db8234fc74e03e7452c72d0676860a0f74e0d82"
 
-prepare() {
-	return
-}
-
 build() {
 	tar -xf "$PKGDOWNLOADDIR/$TARBALL" --strip 1
 

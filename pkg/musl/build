@@ -3,11 +3,6 @@ SRCDIR="musl-$VERSION"
 TARBALL="$SRCDIR.tar.gz"
 URL="https://www.musl-libc.org/releases"
 SHA256SUM="8a0feb41cef26c97dde382c014e68b9bb335c094bbc1356f6edaaf6b79bd14aa"
-DEPENDS="tc-gcc1 linux_headers tc-pkgtool"
-
-prepare() {
-	return
-}
 
 build() {
 	CROSS_COMPILE="${TARGET}-" $1/configure --prefix=/ --target="$TARGET"

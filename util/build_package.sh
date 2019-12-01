@@ -5,6 +5,7 @@ include_pkg() {
 
 	unset -f build deploy prepare check_update
 	unset -v VERSION TARBALL URL SRCDIR SHA256SUM CONFIGURE_OPTIONS
+	. "$SCRIPTDIR/util/emptypkg.sh"
 	. "$SCRIPTDIR/pkg/$PKGNAME/build"
 }
 

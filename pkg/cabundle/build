@@ -4,14 +4,6 @@ TARBALL="${SRCDIR}.tar.xz"
 URL="https://infraroot.at/pub/pygos"
 SHA256SUM="2a941341e2eb3f1ff4b94585c6bc4e5c704698ce9bb555201cbed87257b1216f"
 
-prepare() {
-	return
-}
-
-build() {
-	return
-}
-
 deploy() {
 	mkdir -p "$SYSROOT/etc/ssl" "$SYSROOT/etc/ssl/certs"
 	cp "$1/cert.pem" "$SYSROOT/etc/ssl/cert.pem"

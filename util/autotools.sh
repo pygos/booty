@@ -41,10 +41,6 @@ unfuck_libtool() {
 }
 
 # provide default implementations
-prepare() {
-	apply_patches
-}
-
 build() {
 	run_configure "$1" $CONFIGURE_OPTIONS
 	make -j $NUMJOBS

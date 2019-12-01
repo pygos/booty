@@ -4,10 +4,6 @@ TARBALL="linux-$VERSION.tar.xz"
 URL="https://www.kernel.org/pub/linux/kernel/v4.x"
 SHA256SUM="75988760b931864b46292dcfad1dd54b3f4da10168041f48ca6d7f6dd4e5d25d"
 
-prepare() {
-	return
-}
-
 build() {
 	local LINUX_CPU="$(uname -m)"
 

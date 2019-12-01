@@ -4,10 +4,6 @@ TARBALL="binutils-$VERSION.tar.xz"
 URL="http://ftp.gnu.org/gnu/binutils"
 SHA256SUM="0ab6c55dd86a92ed561972ba15b9b70a8b9f75557f896446c82e8b36e473ee04"
 
-prepare() {
-	apply_patches
-}
-
 build() {
 	$1/configure --prefix="$TCDIR" --target="$TARGET" --disable-nls \
 		     --with-sysroot="$SYSROOT" --disable-multilib \
