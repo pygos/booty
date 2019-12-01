@@ -30,8 +30,6 @@ mkdir -p "$TCDIR/bin"
 CMAKETCFILE="$TCDIR/toolchain.cmake"
 
 ############################# include utilities ##############################
-. "$SCRIPTDIR/util/download.sh"
-. "$SCRIPTDIR/util/pkgcmd.sh"
 . "$SCRIPTDIR/util/misc.sh"
 . "$SCRIPTDIR/util/build_package.sh"
 . "$SCRIPTDIR/util/sqfs.sh"
