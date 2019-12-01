@@ -3,7 +3,7 @@
 include_pkg() {
 	PKGNAME="$1"		# globally visible package name
 
-	unset -f build deploy prepare check_update
+	unset -f download prepare build deploy
 	unset -v VERSION TARBALL URL SRCDIR SHA256SUM CONFIGURE_OPTIONS
 	. "$SCRIPTDIR/util/emptypkg.sh"
 	. "$SCRIPTDIR/pkg/$PKGNAME/build"
@@ -25,18 +25,7 @@ run_pkg_command() {
 }
 
 fetch_package() {
-	echo "$PKGNAME - download"
-
-	if [ -z "$TARBALL" ]; then
-		return
-	fi
-
-	if [ ! -e "$PKGDOWNLOADDIR/$TARBALL" ]; then
-		curl -o "$PKGDOWNLOADDIR/$TARBALL" --silent --show-error \
-		     -L "$URL/$TARBALL"
-	fi
-
-	echo "$SHA256SUM  $PKGDOWNLOADDIR/${TARBALL}" | sha256sum -c "-"
+	run_pkg_command "download" "$PKGDOWNLOADDIR"
 
 	if [ ! -e "$PKGSRCDIR/$SRCDIR" ]; then
 		echo "$PKGNAME - unpack"
