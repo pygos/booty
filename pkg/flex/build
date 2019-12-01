@@ -4,15 +4,4 @@ TARBALL="${SRCDIR}.tar.gz"
 URL="https://github.com/westes/flex/files/981163"
 SHA256SUM="e87aae032bf07c26f85ac0ed3250998c37621d95f8bd748b31f15b33c45ee995"
 
-prepare() {
-	return
-}
-
-build() {
-	run_configure "$1"
-	make -j $NUMJOBS
-}
-
-deploy() {
-	make DESTDIR="$SYSROOT" install
-}
+. "$SCRIPTDIR/util/autotools.sh"

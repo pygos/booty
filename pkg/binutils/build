@@ -1,16 +1,14 @@
 # inherit from cross toolchain package
 . "$SCRIPTDIR/pkg/tc-binutils/build"
 
+. "$SCRIPTDIR/util/autotools.sh"
+
 build() {
-	run_configure "$1" --disable-nls --disable-multilib \
+	run_configure "$1"  \
 		     --enable-shared --disable-plugins --enable-relro \
 		     --with-pic --enable-deterministic-archives \
 		     --target="$TARGET" --disable-lto --with-system-zlib
 
 	make configure-host
 	make -j $NUMJOBS
-}
-
-deploy() {
-	make DESTDIR="$SYSROOT" install
 }

@@ -4,12 +4,8 @@ include_pkg() {
 	PKGNAME="$1"		# globally visible package name
 
 	unset -f build deploy prepare check_update
-	unset -v VERSION TARBALL URL SRCDIR SHA256SUM DEPENDS SUBPKG
+	unset -v VERSION TARBALL URL SRCDIR SHA256SUM CONFIGURE_OPTIONS
 	. "$SCRIPTDIR/pkg/$PKGNAME/build"
-
-	if [ -z "$SUBPKG" ]; then
-		SUBPKG="$PKGNAME"
-	fi
 }
 
 run_pkg_command() {

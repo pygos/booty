@@ -4,15 +4,4 @@ TARBALL="${SRCDIR}.tar.xz"
 URL="https://ftp.gnu.org/gnu/autoconf-archive"
 SHA256SUM="17195c833098da79de5778ee90948f4c5d90ed1a0cf8391b4ab348e2ec511e3f"
 
-prepare() {
-	return
-}
-
-build() {
-	run_configure "$1"
-	make -j $NUMJOBS
-}
-
-deploy() {
-	make DESTDIR="$SYSROOT" install
-}
+. "$SCRIPTDIR/util/autotools.sh"

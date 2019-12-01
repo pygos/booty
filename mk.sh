@@ -33,7 +33,6 @@ CMAKETCFILE="$TCDIR/toolchain.cmake"
 . "$SCRIPTDIR/util/download.sh"
 . "$SCRIPTDIR/util/pkgcmd.sh"
 . "$SCRIPTDIR/util/misc.sh"
-. "$SCRIPTDIR/util/autotools.sh"
 . "$SCRIPTDIR/util/build_package.sh"
 . "$SCRIPTDIR/util/sqfs.sh"
 

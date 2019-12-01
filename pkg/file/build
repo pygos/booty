@@ -4,15 +4,4 @@ TARBALL="${SRCDIR}.tar.gz"
 URL="ftp://ftp.astron.com/pub/file"
 SHA256SUM="e9c13967f7dd339a3c241b7710ba093560b9a33013491318e88e6b8b57bae07f"
 
-prepare() {
-	return
-}
-
-build() {
-	run_configure "$1"
-	make -j $NUMJOBS
-}
-
-deploy() {
-	make DESTDIR="$SYSROOT" install
-}
+. "$SCRIPTDIR/util/autotools.sh"

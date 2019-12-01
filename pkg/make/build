@@ -4,15 +4,4 @@ TARBALL="${SRCDIR}.tar.bz2"
 URL="https://ftp.gnu.org/gnu/make"
 SHA256SUM="4e5ce3b62fe5d75ff8db92b7f6df91e476d10c3aceebf1639796dc5bfece655f"
 
-prepare() {
-	return
-}
-
-build() {
-	run_configure "$1"
-	make -j $NUMJOBS
-}
-
-deploy() {
-	make DESTDIR="$SYSROOT" install
-}
+. "$SCRIPTDIR/util/autotools.sh"

@@ -4,15 +4,4 @@ TARBALL="${SRCDIR}.tar.gz"
 URL="https://ftp.gnu.org/gnu/mpc"
 SHA256SUM="6985c538143c1208dcb1ac42cedad6ff52e267b47e5f970183a3e75125b43c2e"
 
-prepare() {
-	return
-}
-
-build() {
-	run_configure "$1"
-	make -j $NUMJOBS
-}
-
-deploy() {
-	make DESTDIR="$SYSROOT" install
-}
+. "$SCRIPTDIR/util/autotools.sh"
