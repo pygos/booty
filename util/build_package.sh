@@ -24,17 +24,6 @@ run_pkg_command() {
 	gzip -f "$LOGFILE"
 }
 
-fetch_package() {
-	run_pkg_command "download" "$PKGDOWNLOADDIR"
-
-	if [ ! -e "$PKGSRCDIR/$SRCDIR" ]; then
-		echo "$PKGNAME - unpack"
-		tar -C "$PKGSRCDIR" -xf "$PKGDOWNLOADDIR/$TARBALL"
-
-		run_pkg_command "prepare" "$PKGSRCDIR/$SRCDIR"
-	fi
-}
-
 build_package() {
 	if [ -f "$PKGLOGDIR/${PKGNAME}.done" ]; then
 		return
@@ -43,7 +32,7 @@ build_package() {
 	mkdir -p "$SYSROOT" "$PKGBUILDDIR"
 
 	if [ -z "$PYGOS_BUILD_CONTAINER" ]; then
-		fetch_package
+		run_pkg_command "download" "$PKGDOWNLOADDIR"
 	else
 		mount -t tmpfs none "$PKGBUILDDIR"
 	fi
