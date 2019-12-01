@@ -1,12 +1,16 @@
 # inherit package details from toolchain package
 . "$SCRIPTDIR/pkg/tc-gcc1/build"
 
-CONFIGURE_OPTIONS="--target=\"$TARGET\" --disable-nls"
-CONFIGURE_OPTIONS="$CONFIGURE_OPTIONS --enable-languages=c,c++ --enable-c99"
-CONFIGURE_OPTIONS="$CONFIGURE_OPTIONS --enable-long-long --enable-libmudflap"
-CONFIGURE_OPTIONS="$CONFIGURE_OPTIONS --disable-multilib --disable-libsanitizer"
-CONFIGURE_OPTIONS="$CONFIGURE_OPTIONS --disable-bootstrap --disable-lto"
-CONFIGURE_OPTIONS="$CONFIGURE_OPTIONS --disable-tls --disable-libquadmath"
-CONFIGURE_OPTIONS="$CONFIGURE_OPTIONS --with-arch=\"$GCC_CPU\""
-CONFIGURE_OPTIONS="$CONFIGURE_OPTIONS --with-native-system-header-dir=\"/include\""
 . "$SCRIPTDIR/template/autotools.sh"
+
+build() {
+	run_configure "$1" --target="$TARGET" --disable-nls \
+		      --enable-languages=c,c++ --enable-c99 \
+		      --enable-long-long --enable-libmudflap \
+		      --disable-multilib --disable-libsanitizer \
+		      --disable-bootstrap --disable-lto --disable-tls \
+		      --disable-libquadmath --with-arch="$GCC_CPU" \
+		      --with-native-system-header-dir="/include"
+
+	make -j $NUMJOBS
+}
