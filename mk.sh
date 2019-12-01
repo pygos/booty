@@ -15,7 +15,7 @@ SYSROOT="$BUILDROOT/sysroot"
 
 mkdir -p "$PKGSRCDIR" "$PKGDOWNLOADDIR" "$PKGLOGDIR" "$SYSROOT"
 
-HOSTTUPLE=$($SCRIPTDIR/util/config.guess)
+HOSTTUPLE=$($SCRIPTDIR/template/config.guess)
 TARGET="$(uname -m)-linux-musl"
 TCDIR="$BUILDROOT/toolchain"
 GCC_CPU="x86-64"
@@ -70,6 +70,10 @@ if [ -z "$PYGOS_BUILD_CONTAINER" ]; then
 
 	if [ ! -d "$SYSROOT/scripts/util" ]; then
 		cp -r "$SCRIPTDIR/util" "$SYSROOT/scripts"
+	fi
+
+	if [ ! -d "$SYSROOT/scripts/template" ]; then
+		cp -r "$SCRIPTDIR/template" "$SYSROOT/scripts"
 	fi
 
 	echo "--- running stage 2 ---"

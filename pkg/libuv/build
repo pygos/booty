@@ -4,7 +4,7 @@ TARBALL="${SRCDIR}.tar.gz"
 URL="https://dist.libuv.org/dist/v${VERSION}"
 SHA256SUM="b4b5dc15103f7bbfecb81a0a9575841fdb7217b9f709634be8118972c1c8ce27"
 
-. "$SCRIPTDIR/util/autotools.sh"
+. "$SCRIPTDIR/template/autotools.sh"
 
 prepare() {
 	./autogen.sh

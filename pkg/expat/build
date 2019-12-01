@@ -5,4 +5,4 @@ URL="https://github.com/libexpat/libexpat/releases/download/R_2_2_8"
 SHA256SUM="61caa81a49d858afb2031c7b1a25c97174e7f2009aa1ec4e1ffad2316b91779b"
 
 CONFIGURE_OPTIONS="--without-docbook"
-. "$SCRIPTDIR/util/autotools.sh"
+. "$SCRIPTDIR/template/autotools.sh"

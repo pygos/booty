@@ -4,4 +4,4 @@ TARBALL="${SRCDIR}.tar.xz"
 URL="https://ftp.gnu.org/gnu/automake"
 SHA256SUM="f98f2d97b11851cbe7c2d4b4eaef498ae9d17a3c2ef1401609b7b4ca66655b8a"
 
-. "$SCRIPTDIR/util/autotools.sh"
+. "$SCRIPTDIR/template/autotools.sh"

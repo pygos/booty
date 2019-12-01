@@ -7,7 +7,7 @@ SHA256SUM="aa057eeeb4a14d470101eff4597d5833dcef5965331be3528c08d99cebaa0d17"
 CONFIGURE_OPTIONS="--with-shared --without-debug --without-ada --enable-widec"
 CONFIGURE_OPTIONS="$CONFIGURE_OPTIONS --with-pkg-config-libdir=/lib/pkgconfig"
 CONFIGURE_OPTIONS="$CONFIGURE_OPTIONS --enable-pc-files --disable-stripping"
-. "$SCRIPTDIR/util/autotools.sh"
+. "$SCRIPTDIR/template/autotools.sh"
 
 deploy() {
 	make DESTDIR="$SYSROOT" install
