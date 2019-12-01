@@ -24,6 +24,20 @@ run_pkg_command() {
 	gzip -f "$LOGFILE"
 }
 
+deploy_dev_cleanup() {
+	local f
+
+	if [ -d "$SYSROOT/share/pkgconfig" ]; then
+		mkdir -p "$SYSROOT/lib/pkgconfig"
+		mv "$SYSROOT/share/pkgconfig"/* "$SYSROOT/lib/pkgconfig"
+		rmdir "$SYSROOT/share/pkgconfig"
+	fi
+
+	for f in "$SYSROOT/lib"/*.la; do
+		[ ! -e "$f" ] || rm "$f"
+	done
+}
+
 build_package() {
 	if [ -f "$PKGLOGDIR/${PKGNAME}.done" ]; then
 		return
