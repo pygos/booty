@@ -58,7 +58,7 @@ build_package() {
 	if [ -z "$PYGOS_BUILD_CONTAINER" ]; then
 		rm -rf "$PKGBUILDDIR"
 	else
-		umount "$PKGBUILDDIR"
+		umount -l "$PKGBUILDDIR"
 	fi
 
 	touch "$PKGLOGDIR/${PKGNAME}.done"
