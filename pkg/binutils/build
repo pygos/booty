@@ -4,7 +4,7 @@
 . "$SCRIPTDIR/template/autotools.sh"
 
 build() {
-	run_configure "$1"  \
+	run_configure "$1" --disable-nls --disable-multilib \
 		     --enable-shared --disable-plugins --enable-relro \
 		     --with-pic --enable-deterministic-archives \
 		     --target="$TARGET" --disable-lto --with-system-zlib
