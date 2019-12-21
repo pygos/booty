@@ -11,3 +11,12 @@ index 72976c4..1b77ed9 100755
                    ;;
                  esac
                  chksum_extension='sha512'
+@@ -243,7 +243,7 @@ do
+     package="${ar%.tar*}"
+     if [ ${force} -gt 0 ]; then rm -rf "${directory}/${package}"; fi
+     [ -e "${directory}/${package}" ]                                          \
+-        || ( cd "${directory}" && tar -xf "${ar}" )                           \
++        || ( cd "${directory}" && tar -xf "${ar}" --no-same-owner )           \
+         || die "Cannot extract package from ${ar}"
+     unset package
+ done

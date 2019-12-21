@@ -23,7 +23,8 @@ download() {
 	echo "$SHA256SUM  $PKGDOWNLOADDIR/$TARBALL" | sha256sum -c "-"
 
 	if [ ! -d "$PKGSRCDIR/$SRCDIR" ]; then
-		tar -C "$PKGSRCDIR" -xf "$PKGDOWNLOADDIR/$TARBALL"
+		tar -C "$PKGSRCDIR" -xf "$PKGDOWNLOADDIR/$TARBALL" \
+		    --no-same-owner
 
 		cd "$PKGSRCDIR/$SRCDIR"
 		prepare "$SCRIPTDIR/pkg/$PKGNAME"

@@ -3,21 +3,18 @@
 set -e
 
 ################################ basic setup ################################
-BUILDROOT="$(pwd)"
-SCRIPTDIR=$(cd $(dirname "$0") && pwd)
+SCRIPTDIR=$(cd $(dirname "$0")/.. && pwd)
 NUMJOBS=$(grep -e "^processor" /proc/cpuinfo | wc -l)
 
-PKGSRCDIR="$BUILDROOT/src"
-PKGDOWNLOADDIR="$BUILDROOT/download"
-PKGBUILDDIR="$BUILDROOT/build"
-PKGLOGDIR="$BUILDROOT/log"
-SYSROOT="$BUILDROOT/sysroot"
-
-mkdir -p "$PKGSRCDIR" "$PKGDOWNLOADDIR" "$PKGLOGDIR" "$SYSROOT"
+PKGSRCDIR="/src"
+PKGDOWNLOADDIR="/download"
+PKGBUILDDIR="/build"
+PKGLOGDIR="/log"
+SYSROOT="/sysroot"
+TCDIR="/toolchain"
 
 HOSTTUPLE=$($SCRIPTDIR/template/config.guess)
 TARGET="$(uname -m)-linux-musl"
-TCDIR="$BUILDROOT/toolchain"
 GCC_CPU="x86-64"
 
 export SOURCE_DATE_EPOCH="0"
