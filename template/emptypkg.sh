@@ -15,14 +15,16 @@ prepare() {
 }
 
 download() {
-	if [ -z "$TARBALL" -o -f "$TARBALL" ]; then
+	if [ -z "$TARBALL" ]; then
 		return
 	fi
 
-	curl -o "$TARBALL" --silent --show-error -L "$URL/$TARBALL"
-	echo "$SHA256SUM  $PKGDOWNLOADDIR/$TARBALL" | sha256sum -c "-"
+	if [ ! -f "$TARBALL" ]; then
+		curl -o "$TARBALL" --silent --show-error -L "$URL/$TARBALL"
+	fi
 
 	if [ ! -d "$PKGSRCDIR/$SRCDIR" ]; then
+		echo "$SHA256SUM  $PKGDOWNLOADDIR/$TARBALL" | sha256sum -c "-"
 		tar -C "$PKGSRCDIR" -xf "$PKGDOWNLOADDIR/$TARBALL" \
 		    --no-same-owner
 
