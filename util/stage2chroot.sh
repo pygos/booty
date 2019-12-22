@@ -16,7 +16,8 @@ for dev in console full null ptmx tty zero; do
 done
 
 mkdir -p "$SYSROOT/download" "$SYSROOT/src" "$SYSROOT/toolchain"
-mkdir -p "$SYSROOT/log" "$SYSROOT/sysroot"
+mkdir -p "$SYSROOT/log" "$SYSROOT/sysroot" "$SYSROOT/build"
+mkdir -p "$SYSROOT/deploy"
 mkdir -p "$BUILDROOT/log2" "$BUILDROOT/sysroot2"
 mount --bind "$BUILDROOT/download" "$SYSROOT/download"
 mount --bind "$BUILDROOT/src" "$SYSROOT/src"

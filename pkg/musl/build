@@ -10,12 +10,12 @@ build() {
 }
 
 deploy() {
-	DESTDIR="$SYSROOT" make install-headers
-	DESTDIR="$SYSROOT" make install-libs
+	DESTDIR="$PKGDEPLOYDIR" make install-headers
+	DESTDIR="$PKGDEPLOYDIR" make install-libs
 
-	mkdir -p "$SYSROOT/bin"
-	local name=$(basename $(ls "$SYSROOT"/lib/ld-musl-*))
-	ln -sf "/lib/$name" "$SYSROOT/bin/ldd"
+	mkdir -p "$PKGDEPLOYDIR/bin"
+	local name=$(basename $(ls "$PKGDEPLOYDIR"/lib/ld-musl-*))
+	ln -sf "/lib/$name" "$PKGDEPLOYDIR/bin/ldd"
 
-	rm "$SYSROOT/lib/libc.a"
+	rm "$PKGDEPLOYDIR/lib/libc.a"
 }

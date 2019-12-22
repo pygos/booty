@@ -27,14 +27,32 @@ run_pkg_command() {
 deploy_dev_cleanup() {
 	local f
 
-	if [ -d "$SYSROOT/share/pkgconfig" ]; then
-		mkdir -p "$SYSROOT/lib/pkgconfig"
-		mv "$SYSROOT/share/pkgconfig"/* "$SYSROOT/lib/pkgconfig"
-		rmdir "$SYSROOT/share/pkgconfig"
+	if [ -d "$PKGDEPLOYDIR/share/pkgconfig" ]; then
+		mkdir -p "$PKGDEPLOYDIR/lib/pkgconfig"
+		mv "$PKGDEPLOYDIR/share/pkgconfig"/* "$PKGDEPLOYDIR/lib/pkgconfig"
+		rmdir "$PKGDEPLOYDIR/share/pkgconfig"
 	fi
 
-	for f in "$SYSROOT/lib"/*.la; do
+	for f in "$PKGDEPLOYDIR/lib"/*.la; do
 		[ ! -e "$f" ] || rm "$f"
+	done
+}
+
+strip_files() {
+	local f
+
+	for f in $@; do
+		[ ! -L "$f" ] || continue;
+
+		if [ -d "$f" ]; then
+			strip_files ${f}/*
+		fi
+
+		[ -f "$f" ] || continue;
+
+		if file -b $f | grep -q -i elf; then
+			${TARGET}-strip --discard-all "$f" 2> /dev/null || true
+		fi
 	done
 }
 
@@ -43,23 +61,29 @@ build_package() {
 		return
 	fi
 
-	mkdir -p "$SYSROOT" "$PKGBUILDDIR"
+	mount -t tmpfs none "$PKGBUILDDIR"
+	mount -t tmpfs none "$PKGDEPLOYDIR"
 
-	if [ -z "$PYGOS_BUILD_CONTAINER" ]; then
-		run_pkg_command "download" "$PKGDOWNLOADDIR"
-	else
-		mount -t tmpfs none "$PKGBUILDDIR"
-	fi
-
+	run_pkg_command "download" "$PKGDOWNLOADDIR"
 	run_pkg_command "build" "$PKGBUILDDIR"
 	run_pkg_command "deploy" "$PKGBUILDDIR"
 	deploy_dev_cleanup
+	strip_files "$PKGDEPLOYDIR/bin" "$PKGDEPLOYDIR/lib" \
+		    "$PKGDEPLOYDIR/$TARGET/bin"
 
-	if [ -z "$PYGOS_BUILD_CONTAINER" ]; then
-		rm -rf "$PKGBUILDDIR"
-	else
-		umount -l "$PKGBUILDDIR"
-	fi
+	cd "$PKGDEPLOYDIR"
+	find -H "." -type f | while read f; do
+		rm -f "$SYSROOT/$f"
+	done
+	find -H "." -type l | while read f; do
+		rm -f "$SYSROOT/$f"
+	done
+	ls | while read f; do
+		cp -r "$f" "$SYSROOT"
+	done
+	cd "/"
 
+	umount -l "$PKGBUILDDIR"
+	umount -l "$PKGDEPLOYDIR"
 	touch "$PKGLOGDIR/${PKGNAME}.done"
 }

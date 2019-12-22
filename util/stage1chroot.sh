@@ -48,6 +48,7 @@ for dir in download log sysroot toolchain src; do
 done
 
 mkdir -p "$BUILDROOT/stage1/build"
+mkdir -p "$BUILDROOT/stage1/deploy"
 
 # copy build scripts
 mkdir -p "$BUILDROOT/stage1/scripts"

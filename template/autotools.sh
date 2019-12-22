@@ -22,7 +22,7 @@ run_configure() {
 }
 
 unfuck_libtool() {
-	local libdir="$SYSROOT/lib"
+	local libdir="$PKGDEPLOYDIR/lib"
 	local f
 
 	for f in $(find $PKGBUILDDIR -type f -name '*.la' -o -name '*.lai'); do
@@ -48,5 +48,5 @@ build() {
 
 deploy() {
 	unfuck_libtool
-	make DESTDIR="$SYSROOT" install
+	make DESTDIR="$PKGDEPLOYDIR" install
 }

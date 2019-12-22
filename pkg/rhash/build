@@ -16,6 +16,6 @@ build() {
 }
 
 deploy() {
-	make DESTDIR="$SYSROOT" install-lib-static install-lib-headers \
+	make DESTDIR="$PKGDEPLOYDIR" install-lib-static install-lib-headers \
 	     install-pkg-config
 }

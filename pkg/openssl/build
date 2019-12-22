@@ -32,7 +32,7 @@ build() {
 }
 
 deploy() {
-	make DESTDIR="$SYSROOT" install
+	make DESTDIR="$PKGDEPLOYDIR" install
 
-	rm "$SYSROOT/lib/libcrypto.a"
+	rm "$PKGDEPLOYDIR/lib/libcrypto.a"
 }

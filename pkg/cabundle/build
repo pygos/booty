@@ -5,9 +5,9 @@ URL="https://infraroot.at/pub/pygos"
 SHA256SUM="2a941341e2eb3f1ff4b94585c6bc4e5c704698ce9bb555201cbed87257b1216f"
 
 deploy() {
-	mkdir -p "$SYSROOT/etc/ssl" "$SYSROOT/etc/ssl/certs"
-	cp "$1/cert.pem" "$SYSROOT/etc/ssl/cert.pem"
+	mkdir -p "$PKGDEPLOYDIR/etc/ssl" "$PKGDEPLOYDIR/etc/ssl/certs"
+	cp "$1/cert.pem" "$PKGDEPLOYDIR/etc/ssl/cert.pem"
 
-	ln -sf "/etc/ssl/cert.pem" "$SYSROOT/etc/ssl/certs/ca-bundle.crt"
-	ln -sf "/etc/ssl/cert.pem" "$SYSROOT/etc/ssl/certs/ca-bundle.trust.crt"
+	ln -sf "/etc/ssl/cert.pem" "$PKGDEPLOYDIR/etc/ssl/certs/ca-bundle.crt"
+	ln -sf "/etc/ssl/cert.pem" "$PKGDEPLOYDIR/etc/ssl/certs/ca-bundle.trust.crt"
 }

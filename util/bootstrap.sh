@@ -9,6 +9,7 @@ NUMJOBS=$(grep -e "^processor" /proc/cpuinfo | wc -l)
 PKGSRCDIR="/src"
 PKGDOWNLOADDIR="/download"
 PKGBUILDDIR="/build"
+PKGDEPLOYDIR="/deploy"
 PKGLOGDIR="/log"
 SYSROOT="/sysroot"
 TCDIR="/toolchain"
@@ -27,7 +28,6 @@ mkdir -p "$TCDIR/bin"
 CMAKETCFILE="$TCDIR/toolchain.cmake"
 
 ############################# include utilities ##############################
-. "$SCRIPTDIR/util/misc.sh"
 . "$SCRIPTDIR/util/build_package.sh"
 . "$SCRIPTDIR/util/sqfs.sh"
 
@@ -52,7 +52,5 @@ for pkg in basefiles cabundle ncurses xz make zlib file gzip bzip2 zstd \
 	include_pkg "$pkg"
 	build_package
 done
-
-strip_files "$SYSROOT/bin" "$SYSROOT/lib" "$SYSROOT/$TARGET/bin"
 
 echo "--- done ---"

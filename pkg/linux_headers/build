@@ -15,7 +15,7 @@ deploy() {
 	local LINUX_CPU="$(uname -m)"
 
 	make -C "$1" O="$PKGBUILDDIR" ARCH="$LINUX_CPU" \
-	     INSTALL_HDR_PATH="$SYSROOT" headers_install
+	     INSTALL_HDR_PATH="$PKGDEPLOYDIR" headers_install
 
-	find "$SYSROOT/include" -name ".*install.cmd" -delete
+	find "$PKGDEPLOYDIR/include" -name ".*install.cmd" -delete
 }

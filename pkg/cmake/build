@@ -20,5 +20,5 @@ build() {
 }
 
 deploy() {
-	make DESTDIR="$SYSROOT" install
+	make DESTDIR="$PKGDEPLOYDIR" install
 }

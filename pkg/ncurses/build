@@ -10,13 +10,13 @@ CONFIGURE_OPTIONS="$CONFIGURE_OPTIONS --enable-pc-files --disable-stripping"
 . "$SCRIPTDIR/template/autotools.sh"
 
 deploy() {
-	make DESTDIR="$SYSROOT" install
-	rm "$SYSROOT/bin/ncursesw6-config"
-	ln -s libncursesw.so.6 "$SYSROOT/lib/libcurses.so"
+	make DESTDIR="$PKGDEPLOYDIR" install
+	rm "$PKGDEPLOYDIR/bin/ncursesw6-config"
+	ln -s libncursesw.so.6 "$PKGDEPLOYDIR/lib/libcurses.so"
 
-	rm "$SYSROOT/lib/libformw.a"
-	rm "$SYSROOT/lib/libmenuw.a"
-	rm "$SYSROOT/lib/libncurses++w.a"
-	rm "$SYSROOT/lib/libncursesw.a"
-	rm "$SYSROOT/lib/libpanelw.a"
+	rm "$PKGDEPLOYDIR/lib/libformw.a"
+	rm "$PKGDEPLOYDIR/lib/libmenuw.a"
+	rm "$PKGDEPLOYDIR/lib/libncurses++w.a"
+	rm "$PKGDEPLOYDIR/lib/libncursesw.a"
+	rm "$PKGDEPLOYDIR/lib/libpanelw.a"
 }
