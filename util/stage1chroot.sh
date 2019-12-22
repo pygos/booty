@@ -14,13 +14,15 @@ mount -t tmpfs none "$BUILDROOT/stage1"
 
 mkdir -p "$BUILDROOT/stage1/etc" "$BUILDROOT/stage1/dev" "$BUILDROOT/stage1/tmp"
 mkdir -p "$BUILDROOT/stage1/root" "$BUILDROOT/stage1/proc"
+mkdir -p "$BUILDROOT/stage1/var/lib"
 
 mount -t proc proc "$BUILDROOT/stage1/proc"
 
-for dir in usr bin sbin lib lib32 lib64 etc/pki etc/alternatives; do
+for dir in usr bin sbin lib lib32 lib64 etc/pki etc/alternatives \
+	   var/lib/ca-certificates; do
 	if [ -d "/$dir" ]; then
 		mkdir -p "$BUILDROOT/stage1/$dir"
-		mount --bind "/$dir" "$BUILDROOT/stage1/$dir"
+		mount --rbind "/$dir" "$BUILDROOT/stage1/$dir"
 	fi
 done
 

@@ -10,6 +10,7 @@ echo "--- running stage 1 ---"
 env -i - PATH=$PATH unshare -fimpuUr \
     "$SCRIPTDIR/util/stage1chroot.sh" "$BUILDROOT" "$SCRIPTDIR" \
     "/scripts/util/bootstrap.sh"
+rmdir "$BUILDROOT/stage1"
 
 echo "--- copying bootstrap scripts to sysroot ---"
 
