@@ -17,15 +17,5 @@ ln -sf /proc/self/fd/2 /dev/stderr
 hostname -F /etc/hostname
 mount -t proc none /proc
 
-alias ..='cd ..'
-alias ...='cd ../..'
-alias cls='tput reset'
-alias dir='ls -l'
-alias ll='ls -l'
-alias la='ls -la'
-alias l='ls -alF'
-alias rm='rm -I'
-alias cp='cp -i'
-
 cd
 exec /bin/sh $@

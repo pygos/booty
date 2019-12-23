@@ -44,10 +44,16 @@ echo "nameserver 1.1.1.1" > "$BUILDROOT/stage1/etc/resolv.conf"
 echo "nameserver 8.8.8.8" >> "$BUILDROOT/stage1/etc/resolv.conf"
 
 # mount stuff from the build directory
-for dir in download log sysroot toolchain src; do
+for dir in download toolchain src; do
 	mkdir -p "$BUILDROOT/$dir" "$BUILDROOT/stage1/$dir"
 	mount --bind "$BUILDROOT/$dir" "$BUILDROOT/stage1/$dir"
 done
+
+mkdir -p "$BUILDROOT/log1" "$BUILDROOT/stage1/log"
+mount --bind "$BUILDROOT/log1" "$BUILDROOT/stage1/log"
+
+mkdir -p "$BUILDROOT/stage2" "$BUILDROOT/stage1/sysroot"
+mount --bind "$BUILDROOT/stage2" "$BUILDROOT/stage1/sysroot"
 
 mkdir -p "$BUILDROOT/stage1/build"
 mkdir -p "$BUILDROOT/stage1/deploy"
